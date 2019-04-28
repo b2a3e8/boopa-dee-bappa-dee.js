@@ -1,5 +1,33 @@
 const index = require('../src/index');
 
+test('find matching opening bracket', () => {
+    const input = 'pe pe pe pe pe pe pe pe boopadee boopa pe pe pe pe boopadee boopa pe pe boopa pe pe pe boopa pe pe pe boopa pe bappa bappa bappa bappa dee bappadee boopa pe boopa pe boopa dee boopa boopa pe boopadee bappa bappadee bappa dee bappadee boopa boopa boo boopa dee dee dee boo pe pe pe pe pe pe pe boo boo pe pe pe boo boopa boopa boo bappa dee boo bappa boo pe pe pe boo dee dee dee dee dee dee boo dee dee dee dee dee dee dee dee boo boopa boopa pe boo boopa pe pe boo'.split(" ");
+    var matchingBracket;
+
+    matchingBracket = index.findMatchingOpeningBracket(input, 33);
+    expect(matchingBracket).toBe(14);
+
+    matchingBracket = index.findMatchingOpeningBracket(input, 45);
+    expect(matchingBracket).toBe(43);
+
+    matchingBracket = index.findMatchingOpeningBracket(input, 48);
+    expect(matchingBracket).toBe(8);
+});
+
+test('find matching closing bracket', () => {
+    const input = 'pe pe pe pe pe pe pe pe boopadee boopa pe pe pe pe boopadee boopa pe pe boopa pe pe pe boopa pe pe pe boopa pe bappa bappa bappa bappa dee bappadee boopa pe boopa pe boopa dee boopa boopa pe boopadee bappa bappadee bappa dee bappadee boopa boopa boo boopa dee dee dee boo pe pe pe pe pe pe pe boo boo pe pe pe boo boopa boopa boo bappa dee boo bappa boo pe pe pe boo dee dee dee dee dee dee boo dee dee dee dee dee dee dee dee boo boopa boopa pe boo boopa pe pe boo'.split(" ");
+    var matchingBracket;
+
+    matchingBracket = index.findMatchingClosingBracket(input, 14);
+    expect(matchingBracket).toBe(33);
+
+    matchingBracket = index.findMatchingClosingBracket(input, 43);
+    expect(matchingBracket).toBe(45);
+
+    matchingBracket = index.findMatchingClosingBracket(input, 8);
+    expect(matchingBracket).toBe(48);
+});
+/*
 test('decode peterish string to "Hello World!"', () => {
     const input = 'pe pe pe pe pe pe pe pe boopadee boopa pe pe pe pe boopadee boopa pe pe boopa pe pe pe boopa pe pe pe boopa pe bappa bappa bappa bappa dee bappadee boopa pe boopa pe boopa dee boopa boopa pe boopadee bappa bappadee bappa dee bappadee boopa boopa boo boopa dee dee dee boo pe pe pe pe pe pe pe boo boo pe pe pe boo boopa boopa boo bappa dee boo bappa boo pe pe pe boo dee dee dee dee dee dee boo dee dee dee dee dee dee dee dee boo boopa boopa pe boo boopa pe pe boo';
     const output = index.decode(input);
@@ -29,3 +57,4 @@ test('decode peterish string which needs four cells to the left of the starting 
     expect(output).toBe('Hello World!\n');
 });
 */
+

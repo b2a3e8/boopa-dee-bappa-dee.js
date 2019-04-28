@@ -11,6 +11,43 @@ function encode (string) {
 
 }
 
+function findMatchingOpeningBracket (array, closePos) {
+
+    // TODO function assumes that parentheses are balanced, so no array bounds checking is done. A real implementation would check that you don't run off the end of the array, and throw an exception (or return an error code) that indicates that parentheses are unbalanced in the input text if you do.
+
+    var openPos = closePos;
+    var counter = 1;
+
+    while (counter > 0) {
+        var command = array[--openPos];
+        if (command === 'boopadee') { // equals brainfuck command [
+            counter--;
+        }
+        if (command === 'bappadee') { // equals brainfuck command ]
+            counter++;
+        }
+    }
+    return openPos;
+}
+
+function findMatchingClosingBracket (array, openPos) {
+
+    // TODO function assumes that parentheses are balanced, so no array bounds checking is done. A real implementation would check that you don't run off the end of the array, and throw an exception (or return an error code) that indicates that parentheses are unbalanced in the input text if you do.
+
+    var closePos = openPos;
+    var counter = 1;
+
+    while (counter > 0) {
+        var command = array[++closePos];
+        if (command === 'boopadee') { // equals brainfuck command [
+            counter++;
+        }
+        if (command === 'bappadee') { // equals brainfuck command ]
+            counter--;
+        }
+    }
+    return closePos;
+}
 
 
 /**
@@ -29,74 +66,59 @@ function decode (string) {
     var data = [];                    // data store
     var pointer = 0;                  // points to position in data store
     var output = "";                  // decoded string
-    var stack = [];                   // array of cursor where boopadee ([) and bappadee (]) are found
+    var bracketStack = [];            // array of cursor where boopadee ([) and bappadee (]) are found
 
     function interpret () {
 
-        const command = input[cursor];
+        console.log("input.length: " + input.length);
 
-        switch (command) {
-            case 'boopa':       // equals brainfuck command >
-                pointer++;
-                break;
-            case 'bappa':       // equals brainfuck command <
-                if (pointer > 0) { pointer--; }
-                break;
-            case 'pe':          // equals brainfuck command +
-                data[pointer] = data[pointer] || 0;
-                data[pointer]++;
-                break;
-            case 'dee':         // equals brainfuck command -
-                data[pointer] = data[pointer] || 0;
-                data[pointer]--;
-                break;
-            case 'boo':         // equals brainfuck command .
-                output += String.fromCharCode(data[pointer]);
-                break;
-            case 'boopadee':    // equals brainfuck command [
+        // loop through input untill cursor points to the end
+        while (cursor < input.length) {
 
-                var latestStackElement = stack[stack.length-1];
+            console.log("cursor: " + cursor);
 
-                if (latestStackElement !== cursor) { // add element to stack if latest element point elsewhere
-                    stack.push(cursor);
-                } else if (latestStackElement.type !== 'number') { // add element to stack if it's not available
-                    stack.push(cursor);
-                }
+            const command = input[cursor];
 
+            console.log("command: "+ command);
 
-                if (!data[pointer]) {
-                    // loop until a matching ']' is found
-                    var open = 1;
-                    var type = { '[' : 1, ']' : -1 };
-                    var c;
-
-                    // break if open becomes 0
-                    for ( ; !(type[c = input[cursor++]] && !(open += type[c])) ; );
-                }
-
-                break;
-            case 'bappadee':    // equals brainfuck command ]
-
-                var latestStackElement = stack[stack.length-1];
-
-                if ('number' !== typeof (latestStackElement)) {
-                    this._error = new Error('No preceeding "]"'); // bad syntax
-                } else {
-                    if (data[pointer]) { cursor  = latestStackElement; } // first char after loop
-                    else { stack.pop(); }  // pop the stack and continue
-                }
-
-
-                break;
-        }
-
-        // check if there are more commands in input array to interpret
-        if (cursor < input.length) {
-            cursor++; // move cursor to next command
-            return interpret(); // interpret next command
-        }
-        else {
-            // TODO resolve promise
+            switch (command) {
+                case 'boopa':       // equals brainfuck command >
+                    pointer++;
+                    break;
+                case 'bappa':       // equals brainfuck command <
+                    if (pointer > 0) { pointer--; }
+                    break;
+                case 'pe':          // equals brainfuck command +
+                    data[pointer] = data[pointer] || 0;
+                    data[pointer]++;
+                    break;
+                case 'dee':         // equals brainfuck command -
+                    data[pointer] = data[pointer] || 0;
+                    data[pointer]--;
+                    break;
+                case 'boo':         // equals brainfuck command .
+                    output += String.fromCharCode(data[pointer]);
+                    break;
+                case 'boopadee':    // equals brainfuck command [
+                    data[pointer] = data[pointer] || 0;
+                    if (data[pointer] === 0) { // if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the matching bappadee (]) command
+                        var closingBracket = findMatchingClosingBracket(input, pointer);
+                        cursor = closingBracket;
+                        console.log("jump to closing bracket: " + closingBracket);
+                    }
+                    break;
+                case 'bappadee':    // equals brainfuck command ]
+                    data[pointer] = data[pointer] || 0;
+                    if (data[pointer] !== 0) { // if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the matching boopadee ([) command
+                        var openingBracket = findMatchingOpeningBracket(input, pointer);
+                        cursor = openingBracket;
+                        console.log("jump to opening bracket: " + openingBracket);
+                    }
+                    break;
+                default:
+                    throw ("bad syntax! " + command + " is not a valid command");
+            }
+            cursor++;
         }
     }
 
@@ -111,6 +133,9 @@ function decode (string) {
  * @returns {boolean} boolean Boolean indicating whether source code is valid or not.
  */
 function validate(string) {
+
+    // TODO check if brackets are balanced
+
     var regex = /^(boopa|bappa|pe|boo|dee|boopadee|bappadee| )+$/;
 
     if (string.match(regex)) {
@@ -131,4 +156,6 @@ module.exports = {
     decode,
     encode,
     validate,
+    findMatchingOpeningBracket,
+    findMatchingClosingBracket,
 };
