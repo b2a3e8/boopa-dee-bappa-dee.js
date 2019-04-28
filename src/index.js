@@ -70,16 +70,10 @@ function decode (string) {
 
     function interpret () {
 
-        console.log("input.length: " + input.length);
-
         // loop through input untill cursor points to the end
         while (cursor < input.length) {
 
-            console.log("cursor: " + cursor);
-
             const command = input[cursor];
-
-            console.log("command: "+ command);
 
             switch (command) {
                 case 'boopa':       // equals brainfuck command >
@@ -102,17 +96,15 @@ function decode (string) {
                 case 'boopadee':    // equals brainfuck command [
                     data[pointer] = data[pointer] || 0;
                     if (data[pointer] === 0) { // if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the matching bappadee (]) command
-                        var closingBracket = findMatchingClosingBracket(input, pointer);
+                        var closingBracket = findMatchingClosingBracket(input, cursor);
                         cursor = closingBracket;
-                        console.log("jump to closing bracket: " + closingBracket);
                     }
                     break;
                 case 'bappadee':    // equals brainfuck command ]
                     data[pointer] = data[pointer] || 0;
                     if (data[pointer] !== 0) { // if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the matching boopadee ([) command
-                        var openingBracket = findMatchingOpeningBracket(input, pointer);
+                        var openingBracket = findMatchingOpeningBracket(input, cursor);
                         cursor = openingBracket;
-                        console.log("jump to opening bracket: " + openingBracket);
                     }
                     break;
                 default:
