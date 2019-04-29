@@ -55,9 +55,8 @@ function decode (string) {
     var data = [];                    // data store
     var pointer = 0;                  // points to position in data store
     var output = "";                  // decoded string
-    var bracketStack = [];            // array of cursor where boopadee ([) and bappadee (]) are found
 
-    function interpret () {
+    function interpret () { // TODO funktion loeschen
 
         // loop through input untill cursor points to the end
         while (cursor < input.length) {

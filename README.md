@@ -4,16 +4,16 @@ A brainfuck derivative based on the vocabulary of [Peter Griffin's interpretatio
 This js library is intended for use on websites to encode and decode ASCII into Boopa-Dee Bappa-Dee and therefore does not support boopabappa command (read from stdin).
 
 ## Commands
-Word | Brainfuck Character | Meaning
+Command | Brainfuck | Meaning
 --- | --- | ---
-boopa | \> | increment the data pointer (to point to the next cell to the right)
-bappa | \< | decrement the data pointer (to point to the next cell to the left)
-pe | \+ | increment (increase by one) the byte at the data pointer
-dee | \- | decrement (decrease by one) the byte at the data pointer
+boopa | \> | increment the data pointer
+bappa | \< | decrement the data pointer
+pe | \+ | increment the byte at the data pointer
+dee | \- | decrement the byte at the data pointer
 boo | \. | output the byte at the data pointer
 boopabappa* | \, | accept one byte of input, storing its value in the byte at the data pointer
-boopadee | \[ | if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the command after the matching ] command
-bappadee | \] | if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command
+boopadee | \[ | if pointer is zero, jump to matching ]
+bappadee | \] | if pointer is nonzero, jump to matching [
 
 **\*ATTENTION**
 The boopabappa command is not supported by this library at the moment! Please check out this [Boopa-Dee Bappa-Dee Interpreter written in C](https://github.com/MrMonk3y/Boopa-Dee-Bappa-Dee) if you need the boopabappa command.
