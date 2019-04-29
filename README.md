@@ -1,7 +1,7 @@
 # boopa-dee-bappa-dee.js
 
 A brainfuck derivative based on the vocabulary of [Peter Griffin's interpretation of the italian language](https://youtu.be/aS38wY1Fm34).
-This js library is intended for use websites to encode and decode ASCII into Boopa-Dee Bappa-Dee and therefore does not support boopabappa command (read from stdin).
+This js library is intended for use on websites to encode and decode ASCII into Boopa-Dee Bappa-Dee and therefore does not support boopabappa command (read from stdin).
 
 ## Commands
 Word | Brainfuck Character | Meaning
