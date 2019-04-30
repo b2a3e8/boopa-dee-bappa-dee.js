@@ -1,10 +1,10 @@
 'use strict';
 
 /**
- * Finds the matching boopadee for a bappadee.
+ * Finds the matching boopadee for a baa.
  * @param   {Array<string>}  array     Array of boopa-dee-bappa-dee commands to search in.
- * @param   {Integer}        closePos  Pointer to bappadee command in command's array.
- * @returns {Integer}                  Pointer to bappadee's matching boopadee command in command's array.
+ * @param   {Integer}        closePos  Pointer to baa command in command's array.
+ * @returns {Integer}                  Pointer to baa's matching boopadee command in command's array.
  */
 function findMatchingOpeningBracket (array, closePos) {
 
@@ -16,7 +16,7 @@ function findMatchingOpeningBracket (array, closePos) {
         if (command === 'boopadee') { // equals brainfuck command [
             counter--;
         }
-        if (command === 'bappadee') { // equals brainfuck command ]
+        if (command === 'baa') { // equals brainfuck command ]
             counter++;
         }
     }
@@ -24,10 +24,10 @@ function findMatchingOpeningBracket (array, closePos) {
 }
 
 /**
- * Finds the matching bappadee for a boopadee.
+ * Finds the matching baa for a boopadee.
  * @param   {Array<string>}  array    Array of boopa-dee-bappa-dee commands to search in.
  * @param   {Integer}        openPos  Pointer to boopadee command in command's array.
- * @returns {Integer}                 Pointer to boopadee's matching bappadee command in command's array.
+ * @returns {Integer}                 Pointer to boopadee's matching baa command in command's array.
  */
 function findMatchingClosingBracket (array, openPos) {
 
@@ -39,7 +39,7 @@ function findMatchingClosingBracket (array, openPos) {
         if (command === 'boopadee') { // equals brainfuck command [
             counter++;
         }
-        if (command === 'bappadee') { // equals brainfuck command ]
+        if (command === 'baa') { // equals brainfuck command ]
             counter--;
         }
     }
@@ -76,31 +76,31 @@ function decode (string) {
             const command = input[cursor];
 
             switch (command) {
-                case 'boopa':       // equals brainfuck command >
+                case 'bappadee':    // equals brainfuck command >
                     pointer++;
                     break;
-                case 'bappa':       // equals brainfuck command <
+                case 'boo':         // equals brainfuck command <
                     if (pointer > 0) { pointer--; }
                     break;
-                case 'pe':          // equals brainfuck command +
+                case 'boopa':       // equals brainfuck command +
                     data[pointer] = data[pointer] || 0;
                     data[pointer]++;
                     break;
-                case 'dee':         // equals brainfuck command -
+                case 'bappa':       // equals brainfuck command -
                     data[pointer] = data[pointer] || 0;
                     data[pointer]--;
                     break;
-                case 'boo':         // equals brainfuck command .
+                case 'dee':         // equals brainfuck command .
                     output += String.fromCharCode(data[pointer]);
                     break;
                 case 'boopadee':    // equals brainfuck command [
                     data[pointer] = data[pointer] || 0;
-                    if (data[pointer] === 0) { // if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the matching bappadee (]) command
+                    if (data[pointer] === 0) { // if the byte at the data pointer is zero, then instead of moving the instruction pointer forward to the next command, jump it forward to the matching baa (]) command
                         var closingBracket = findMatchingClosingBracket(input, cursor);
                         cursor = closingBracket;
                     }
                     break;
-                case 'bappadee':    // equals brainfuck command ]
+                case 'baa':         // equals brainfuck command ]
                     data[pointer] = data[pointer] || 0;
                     if (data[pointer] !== 0) { // if the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the matching boopadee ([) command
                         var openingBracket = findMatchingOpeningBracket(input, cursor);
@@ -120,24 +120,26 @@ function decode (string) {
 
 /**
  * Validates a boopa-dee-bappa-dee string.
- * @param   {string}   string Source code to validate.
- * @returns {boolean}         Indicating whether source code is valid or not.
+ * @param   {string}   string  Source code to validate.
+ * @returns {boolean}          Indicating whether source code is valid or not.
  */
 function validate(string) {
 
+    console.log(string);
+
     // check if brackets are balanced
-    if (string.match(/(boopadee)/g).length !== string.match(/(bappadee)/g).length) {
-        throw new Error('source code is not valid: brackes are unbalanced!');
+    if (string.match(/(boopadee)/g).length !== string.match(/(baa)/g).length) {
+        throw new Error('source code is not valid: brackes (boopadee and baa) are unbalanced!');
     }
 
     // check if string only contains valid commands
-    if (string.match(/^(boopa|bappa|pe|boo|dee|boopadee|bappadee| )+$/)) {
+    if (string.match(/^(bappadee|boo|boopa|bappa|dee|boopadee|baa| )+$/)) {
         return true; // source code is valid
     } else {
 
-        // check if string contains boopabappa command, to throw an more detailed error message
+        // check if string contains beepee command, to throw an more detailed error message
         if (string.match(/boopabappa/)) {
-            throw new Error('source code is not valid: this translator does not support boopabappa command');
+            throw new Error('source code is not valid: this translator does not support beepee command');
         } else {
             throw new Error('source code is not valid!');
         }
