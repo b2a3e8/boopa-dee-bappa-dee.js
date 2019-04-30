@@ -1,7 +1,7 @@
 {
   "name": "boopa-dee-bappa-dee.js",
   "version": "0.0.1",
-  "description": "",
+  "description": "A brainfuck derivative based on the vocabulary of Peter Griffin's interpretation of the italian language.",
   "main": "src/index.js",
   "directories": {
     "test": "tests"
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest"
   },
-  "author": "",
+  "author": "b2a3e8",
   "license": "MIT",
   "devDependencies": {
     "jest": "^24.7.1"
