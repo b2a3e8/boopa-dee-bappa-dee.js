@@ -15,7 +15,7 @@ test('find matching closing bracket', () => {
 });
 
 test('decode boopa-dee-bappa-dee string to "Hello World!"', () => {
-    const input = 'boopa boopa boopa boopa boopa boopa boopa boopa boopadee bappadee boopa boopa boopa boopa boopadee bappadee boopa boopa bappadee boopa boopa boopa bappadee boopa boopa boopa bappadee boopa boo boo boo boo bappa baa bappadee boopa bappadee boopa bappadee bappa bappadee bappadee boopa boopadee boo baa boo bappa baa bappadee bappadee dee bappadee bappa bappa bappa dee boopa boopa boopa boopa boopa boopa boopa dee dee boopa boopa boopa dee bappadee bappadee dee boo bappa dee boo dee boopa boopa boopa dee bappa bappa bappa bappa bappa bappa dee bappa bappa bappa bappa bappa bappa bappa bappa dee bappadee bappadee boopa dee bappadee boopa boopa dee'.split(" ");
+    const input = 'boopa boopa boopa boopa boopa boopa boopa boopa boopadee bappadee boopa boopa boopa boopa boopadee bappadee boopa boopa bappadee boopa boopa boopa bappadee boopa boopa boopa bappadee boopa boo boo boo boo bappa baa bappadee boopa bappadee boopa bappadee bappa bappadee bappadee boopa boopadee boo baa boo bappa baa bappadee bappadee dee bappadee bappa bappa bappa dee boopa boopa boopa boopa boopa boopa boopa dee dee boopa boopa boopa dee bappadee bappadee dee boo bappa dee boo dee boopa boopa boopa dee bappa bappa bappa bappa bappa bappa dee bappa bappa bappa bappa bappa bappa bappa bappa dee bappadee bappadee boopa dee bappadee boopa boopa dee';
     expect(decode.decode(input)).resolves.toBe('Hello World!\n');
 });
 

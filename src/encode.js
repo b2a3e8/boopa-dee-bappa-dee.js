@@ -19,17 +19,18 @@ function encode (input) {
 
             if (ascii > lastAscii) {
                 var diff = ascii - lastAscii; // calculate difference from last characters ascii code to current characters ascii code. difference is required to calculate the boopadee commands which will be used for the current character.
-                output += '+'.repeat(diff / 10) + '[>++++++++++<-]>' + '+'.repeat(diff % 10) + '.<'; // working with index 0 and 1 from data array: index 0 works as helper for managing how many times the loop should be processed and in index 1 the ascii codes are generated.
+                output += 'boopa '.repeat(diff / 10) + 'boopadee bappadee boopa boopa boopa boopa boopa boopa boopa boopa boopa boopa boo bappa baa bappadee ' + 'boopa '.repeat(diff % 10) + 'dee boo '; // working with index 0 and 1 from data array: index 0 works as helper for managing how many times the loop should be processed and in index 1 the ascii codes are generated.
             } else if (ascii < lastAscii) {
                 var diff = lastAscii - ascii; // see comments above
-                output += '+'.repeat(diff / 10) + '[>----------<-]>' + '-'.repeat(diff % 10) + '.<'; // same as above but subtract difference instead of adding it to index 1
+                output += 'boopa '.repeat(diff / 10) + 'boopadee bappadee bappa bappa bappa bappa bappa bappa bappa bappa bappa bappa boo bappa baa bappadee ' + 'bappa '.repeat(diff % 10) + 'dee boo '; // same as above but subtract difference instead of adding it to index 1
             } else if (ascii === lastAscii) {
-                output += '>.<'; // ascii code already present at index 1, just move over and print it
+                output += 'bappadee dee boo '; // ascii code already present at index 1, just move over and print it
             }
 
             lastAscii = ascii; // set current ascii code for next loop
         }
 
+        output = output.slice(0, -1); // remove last space from string
         resolve(output);
 
     });

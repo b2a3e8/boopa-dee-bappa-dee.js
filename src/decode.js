@@ -125,8 +125,6 @@ function decode (string) {
  */
 function validate(string) {
 
-    console.log(string);
-
     // check if brackets are balanced
     if (string.match(/(boopadee)/g).length !== string.match(/(baa)/g).length) {
         throw new Error('source code is not valid: brackes (boopadee and baa) are unbalanced!');
