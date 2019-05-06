@@ -12,8 +12,8 @@ boopa | \+ | increment the byte at the data pointer
 bappa | \- | decrement the byte at the data pointer
 dee | \. | output the byte at the data pointer
 beepee | \, | accept one byte of input, storing its value in the byte at the data pointer - **not supported by this library**
-boopadee | \[ | if pointer is zero, jump to matching ]
-baa | \] | if pointer is nonzero, jump to matching [
+boopadee | \[ | if pointer is zero, jump to matching baa
+baa | \] | if pointer is nonzero, jump to matching boopadee
 
 ## Example
 Source code for "Hello World!":
