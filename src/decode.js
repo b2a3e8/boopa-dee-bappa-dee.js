@@ -108,7 +108,7 @@ function decode (string) {
                     }
                     break;
                 default:
-                    throw ("bad syntax! " + command + " is not a valid command");
+                    // ignore this word because its not a valid command
             }
             cursor++;
         }
@@ -126,22 +126,18 @@ function decode (string) {
 function validate(string) {
 
     // check if brackets are balanced
-    if (string.match(/(boopadee)/g).length !== string.match(/(baa)/g).length) {
-        throw new Error('source code is not valid: brackes (boopadee and baa) are unbalanced!');
-    }
-
-    // check if string only contains valid commands
-    if (string.match(/^(bappadee|boo|boopa|bappa|dee|boopadee|baa| )+$/)) {
-        return true; // source code is valid
+    const boopadeeMatches = string.match(/(boopadee)/g);
+    const baaMatches = string.match(/(baa)/g);
+    if (!boopadeeMatches && !baaMatches) {
+        return true;
+    } else if (!boopadeeMatches || !baaMatches) {
+        throw new Error('source code is not valid: brackets (boopadee and baa) are unbalanced!');
+    } else if (boopadeeMatches.length === baaMatches.length) {
+        return true;
     } else {
-
-        // check if string contains beepee command, to throw an more detailed error message
-        if (string.match(/boopabappa/)) {
-            throw new Error('source code is not valid: this translator does not support beepee command');
-        } else {
-            throw new Error('source code is not valid!');
-        }
+        throw new Error('source code is not valid: brackets (boopadee and baa) are unbalanced!');
     }
+
 }
 
 module.exports = {

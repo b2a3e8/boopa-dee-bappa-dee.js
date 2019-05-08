@@ -12,6 +12,6 @@
   "author": "b2a3e8",
   "license": "MIT",
   "devDependencies": {
-    "jest": "^24.7.1"
+    "jest": "^24.8.0"
   }
 }
