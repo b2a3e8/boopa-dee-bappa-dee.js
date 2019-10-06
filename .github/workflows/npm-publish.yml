@@ -10,8 +10,7 @@ jobs:
     - uses: actions/checkout@master
     - name: npm publish
       run: |
-        printenv
-        npm whoami
+        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         npm install
         npm test
         npm publish
