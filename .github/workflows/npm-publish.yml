@@ -8,7 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: |
+    - name: npm publish
+      run: |
         npm install
         npm test
         npm publish
