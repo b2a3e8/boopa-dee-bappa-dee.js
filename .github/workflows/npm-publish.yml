@@ -1,15 +1,19 @@
 name: Publish to npm
-on: [push]
+on:
+  push:
+    branches:
+      - develop
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - run: |
+    - name: npm publish
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
         npm install
-        npm run build
         npm test
         npm publish
       env:
         CI: true
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
