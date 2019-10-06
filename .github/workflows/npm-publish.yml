@@ -6,6 +6,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - run: |
+        npm install
         npm test
         npm publish
       env:
