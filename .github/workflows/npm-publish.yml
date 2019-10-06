@@ -1,0 +1,15 @@
+name: Publish to npm
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - run: |
+        npm install
+        npm run build
+        npm test
+        npm publish
+      env:
+        CI: true
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
